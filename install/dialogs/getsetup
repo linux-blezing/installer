@@ -53,7 +53,7 @@ function select_bootdisk() {
 function select_rootdisk() {
     echo "Select Root Partition"
     listing_parteds
-    read -p "Type Number of Boot Partition : " rootnum
+    read -p "Type Number of Root Partition : " rootnum
     ROOTPART="${allparted[$rootnum]}"
     unset 'allparted[$rootnum]'
 }
@@ -63,7 +63,7 @@ function select_rootdisk() {
 function select_datadisk() {
     echo "Select Data Partition"
     listing_parteds
-    read -p "Type Number of Boot Partition : " datanum
+    read -p "Type Number of Data Partition : " datanum
     DATAPART="${allparted[$datanum]}"
     unset 'allparted[$rootnum]'
 }
@@ -75,7 +75,7 @@ function select_bootload() {
     for list in "${!allloader[@]}"; do
         echo "[$list] ${allloader[$list]}"
     done
-    read -p "Type Number for Boot loader : " loadnum
+    read -p "Type Number for Bootloader : " loadnum
     BOOTLOAD="${allloader[$loadnum]}"
 }
 
