@@ -1,8 +1,8 @@
-SYSTHOST=osname
+SYSTHOST=blezing
 DISKMAIN=/dev/sda
 DISKBOOT=/dev/sda1
 DISKPROC=/dev/sda2
 DISKDATA=/dev/sda3
-USERNAME=osname
+USERNAME=blezing
 PASSWORD=1511
 TIMEZONE=Asia/Jakarta

@@ -1,5 +1,5 @@
-DISTRO_NAME="Eyerise"
-DISTRO_UNIQ="eyerise"
+DISTRO_NAME="Blezing"
+DISTRO_UNIQ="blezing"
 
 DISTRO_DESK="plasma"
 DISTRO_AUDI="pipe"
@@ -9,7 +9,7 @@ DISTRO_BOOT="grub"
 DISTRO_SYST="based"
 DISTRO_WORK="level-100"
 DISTRO_SECS="level-100"
-DISTRO_DOCS="level-100"
+DISTRO_DOCS="level-101"
 DISTRO_WAPP="level-100"
 
 PROTOC_DEKS=""
