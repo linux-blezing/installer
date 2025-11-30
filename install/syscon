@@ -68,26 +68,29 @@ else
 fi
 
 
+
 ##
-## AURPACK
+## PACKAGE
+useradd -m install &&
+echo 'install ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/install &&
+
+## aurpack
 if [[ ! -z $AURPACKS ]];then
-    useradd -m install &&
-    echo 'install ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/install &&
+   
     sudo -H -u install /bin/bash -c "git clone https://aur.archlinux.org/yay /tmp/yay" &&
     sudo -H -u install /bin/bash -c "makepkg -sric --dir /tmp/yay --noconfirm" &&
     sudo -H -u install /bin/bash -c "yay -S $AURPACKS  --noconfirm"
-    rm /etc/sudoers.d/install &&
-    userdel -r install
 fi
 
-
-##
-## FLATPAK
+## flatpak
 if [[ ! -z $FLATPAKS ]];then
     for flatapp in "${FLATPAKS[@]}"; do
-        flatpak install --noninteractive $flatapp
+        sudo -H -u install /bin/bash -c "flatpak install --noninteractive $flatapp"
     done
 fi
+
+rm /etc/sudoers.d/install &&
+userdel -r install
 
 
 ##
@@ -100,7 +103,6 @@ chmod +x /usr/rbin/* &&
 rm /etc/mkinitcpio.conf &&
 rm -fr /etc/mkinitcpio.conf.d/ &&
 echo "root=$DISKPROC" > /etc/cmdline.d/01-boot.conf &&
-mkinitcpio -P &&
 
 
 ##
@@ -127,6 +129,7 @@ fi
 if [[ $( echo $DISTRO_BOOT ) == "grub" ]]; then
     mkdir -p /boot/{efi,$DISTRO_UNIQ} &&
     mkdir -p /boot/efi/{boot,linux,systemd} &&
+    mkinitcpio -P &&
     echo 'GRUB_DISTRIBUTOR="'$DISTRO_NAME'"' >> /etc/default/grub &&
     grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=$DISTRO_UNIQ &&
     grub-mkconfig -o /boot/grub/grub.cfg
@@ -138,19 +141,7 @@ if [[ $( echo $DISTRO_BOOT ) == "sysd" ]]; then
 
     mkdir -p /boot/{efi,kernel,loader} &&
     mkdir -p /boot/efi/{boot,linux,systemd} 
-
-    if [[ -e /boot/vmlinuz-*  ]]; then
-        mv /boot/vmlinuz-* "/boot/kernel/"
-    fi
-
-    if [[ -e /boot/*-ucode.img  ]]; then
-        mv /boot/*-ucode.img "/boot/kernel/"
-    fi
-
-    if [[ -e /boot/initram*  ]]; then
-        rm initram*
-    fi
-
+    mkinitcpio -P &&
     bootctl --path=/boot/ install
 fi
 
