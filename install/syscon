@@ -91,6 +91,12 @@ if [[ ! -z $FLATPAKS ]];then
 fi
 
 
+## waydroid
+if [[ ! -z $( echo $PACKAGE | grep waydroid ) ]];then
+    waydroid init -s GAPPS
+fi
+
+
 ##
 ## BINPATH
 chmod +x /usr/xbin/* &&
