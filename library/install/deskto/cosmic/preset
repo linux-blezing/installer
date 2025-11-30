@@ -6,7 +6,7 @@ PACKAGE="${PACKAGE} sddm cosmic-app-library cosmic-applets cosmic-bg cosmic-comp
 RDAEMON="${RDAEMON} sddm "
 
 ## GLOBALS
-GDAEMON="${GDAEMON} gcr-ssh-agent.socket"
+GDAEMON="${GDAEMON} gcr-ssh-agent.socket "
 
 
 ## CONFIGS
